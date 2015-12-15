@@ -34,7 +34,7 @@ require([
 ],
   function (Map, ArcGISDynamicMapServiceLayer, FeatureLayer, ImageParameters, Popup, PopupTemplate, InfoWindow, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color, Search, HomeButton, domUtils, domClass, dom, domConstruct, on, Tooltip, Chart, Chart2D, Bars, dojoxTheme, axis2d, query, registry, TabContainer, BorderContainer, ContentPane, connect) {
 
-  var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
+  var fill = new SimpleLineSymbol( null, new Color("#A4CE67"));
   var popup = new Popup({
       fillSymbol: fill,
       titleInBody: false
@@ -72,10 +72,20 @@ require([
       cp.addChild(tc);
 
       var cp2 = new ContentPane({
-        title: "More" + "<br>" + "Information",
-        content: "hello",style: "height:325px; width:475px; border-color:#fff;color:#222327; font:sans-serif;"
-      });
+        title: "County" + "<br>" + "Information",
+        content:
+      "<u>County Data</u>"+"<br>"+"<br>"+
+      "Population: " + graphic.attributes.totpop +"<br>"+
+      "County Area: " + graphic.attributes.sq_k + " sq. mi." + "<br>" +
+      "Population Density: " + graphic.attributes.pop_den + " people/sq. mi."+
+      "<br>"+
+      "<br>"+
+      "<u>Resources</u>" + "<br>"+"<br>"+
+      graphic.attributes.County + " County " + "<a href='" + graphic.attributes.website + "' target='_blank'>Emergency Preparedness Website</a>"
 
+    ,style: "height:325px; width:475px; border-color:#fff;color:#222327; font:sans-serif;"
+      });
+      
       tc.startup();
 
       var cp1 = new ContentPane({
