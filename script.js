@@ -67,7 +67,7 @@ require([
     });
 
     //feature layer containing all risks and set as transparent. popup pulls from this layer for display information
-    var featureLayer = new FeatureLayer("http://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/AllRisks_Popup/FeatureServer/0",{
+    var featureLayer = new FeatureLayer("http://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/RISK/FeatureServer/0",{
       mode: FeatureLayer.MODE_ONDEMAND,
       outFields: ["*"],
       infoTemplate: template
