@@ -1,5 +1,3 @@
-//var map;
-
 require([
   "esri/map",
   "esri/layers/ArcGISDynamicMapServiceLayer",
@@ -10,20 +8,31 @@ require([
   "esri/dijit/InfoWindow",
   "esri/InfoTemplate",
   "esri/symbols/SimpleFillSymbol",
+  "esri/symbols/SimpleLineSymbol",
   "esri/Color",
+  "esri/dijit/Search",
+  "esri/dijit/HomeButton",
+  "esri/domUtils",
   "dojo/dom-class",
   "dojo/dom",
   "dojo/dom-construct",
   "dojo/on",
+  "dojox/charting/action2d/Tooltip",
   "dojox/charting/Chart",
-  "dojox/charting/themes/Dollar",
+  "dojox/charting/Chart2D",
+  "dojox/charting/plot2d/Bars",
+  "dojox/charting/themes/Grasslands",
+  "dojox/charting/axis2d/Default",
   "dojo/query",
-  "dojo/NodeList-traverse",
+  "dijit/registry",
+  "dijit/layout/TabContainer",
   "dijit/layout/BorderContainer",
   "dijit/layout/ContentPane",
+  "dojo/_base/connect",
+  "dojo/NodeList-traverse",
   "dojo/domReady!"
 ],
-  function (Map, ArcGISDynamicMapServiceLayer, FeatureLayer, ImageParameters, Popup, PopupTemplate, InfoWindow, InfoTemplate, SimpleFillSymbol, Color, domClass, dom, domConstruct, on, Chart, theme, query) {
+  function (Map, ArcGISDynamicMapServiceLayer, FeatureLayer, ImageParameters, Popup, PopupTemplate, InfoWindow, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color, Search, HomeButton, domUtils, domClass, dom, domConstruct, on, Tooltip, Chart, Chart2D, Bars, dojoxTheme, axis2d, query, registry, TabContainer, BorderContainer, ContentPane, connect) {
 
   var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
   var popup = new Popup({
@@ -32,47 +41,174 @@ require([
   }, domConstruct.create("div"));
   domClass.add(popup.domNode, "dark");
 
-    var infoWindow = new InfoWindow({}, domConstruct.create("div"));
-    infoWindow.startup();
-    var infoTemplate = new InfoTemplate("Testing", "${*}");
 
     var map = new Map("map", {
       center: [-98, 37],
       zoom: 4,
       basemap: "gray",
+      maxZoom: 8,
       infoWindow: popup
     });
 
-    var template = new PopupTemplate({
-      title: "{NAME}, County",
-      description: "Natural Hazard Risk",
-      fieldInfos: [{ //define field infos so we can specify an alias
-        fieldName: "freq",
-        label: "Wildfire"
-      },{
-        fieldName: "freq",
-        label: "Hurricane"
-      },{
-        fieldName: "freq",
-        label: "Flood"
-      }],
-      mediaInfos:[{ //define the bar chart
-        caption: "",
-        type:"barchart",
-        value:{
-          theme: "Dollar",
-          fields:["freq","freq","freq"]
+      domClass.add(map.infoWindow.domNode, "myTheme");
+
+
+     var info_window = new esri.InfoTemplate();
+       info_window.setTitle("<b>${County} County, ${State}</b>");
+       info_window.setContent(getWindowContent);
+      function getWindowContent(graphic){
+      var cp = new ContentPane ({
+        style: "height:100%,width:100%"
+      });
+
+      var tc = new TabContainer({
+        style: "width:100%;height:100%;border-color:#fff;background-color:#DBDBD6;color:#222327",
+        useMenu: false,
+        useSlider: false,
+        doLayout: true,
+        tabPosition: "right-h",
+      }, domConstruct.create("div"));
+
+      cp.addChild(tc);
+
+      var cp2 = new ContentPane({
+        title: "More" + "<br>" + "Information",
+        content: "hello",style: "height:325px; width:475px; border-color:#fff;color:#222327; font:sans-serif;"
+      });
+
+      tc.startup();
+
+      var cp1 = new ContentPane({
+        title: "Risk" + "<br>" + "Concerns",
+        style: "height:325px; width:475px; border-color:#fff;color:#222327;"
+      });
+
+      tc.addChild(cp1);
+      tc.addChild(cp2);
+      tc.selectChild(cp1);
+
+      var bar_chart1 = domConstruct.create("div", {id: "BarChart1"},
+            domConstruct.create("div"));
+
+      var BarChart1 = new Chart2D(bar_chart1, {
+            title: "Risk Assessment",
+            titleFont: "normal normal normal 12pt Verdana,Geneva,Arial,Helvetica,sans-serif"
+          });
+          domClass.add(BarChart1, "chart");
+
+          BarChart1.setTheme(dojoxTheme);
+          BarChart1.addPlot("default", {
+            type: "Bars",
+            markers: true,
+            gap: 5,
+            htmlLabels: true,
+            labels: false,
+            labelStyle: "outside",
+            labelOffset: 25
+          });
+          BarChart1.addAxis("x",
+            {majorTicks: true,
+              minorTicks: false,
+              majorTickStep: 1,
+              max: 4,
+              min: 0,
+              labels: labels_x
+            });
+          BarChart1.addAxis("y", {vertical: true,
+            labels: labels,
+            majorTicks: false,
+            majorTick: {length: 2},
+            majorLabels: true,
+            majorTickStep: 1,
+            minorTicks: false,
+            max: 9
+          });
+
+          tc.watch("selectedChildWidget", function(name, newVal){
+            if ( newVal.title === "Risk") {
+              BarChart1.resize(200,200);
+            }
+          });
+
+      function getColor(risk_value){
+        if (risk_value== "1") {return "#1A9641";}
+        else if (risk_value== "2") {return "#A5D96A";}
+        else if (risk_value== "3") {return "#FCAE60";}
+        else if (risk_value== "4") {return "#D61A1D";}}
+
+      var wf_color = getColor(graphic.attributes.Wildfire);
+      var eq_color = getColor(graphic.attributes.Earthquake);
+      var nuc_color = getColor(graphic.attributes.Nuclear);
+      var tor_color = getColor(graphic.attributes.Tornadoes);
+      var fl_color = getColor(graphic.attributes.Floods);
+      var hur_color = getColor(graphic.attributes.Hurricanes);
+      var win_color = getColor(graphic.attributes.Winter);
+      var vol_color = getColor(graphic.attributes.Volcanoes);
+
+      BarChart1.addSeries("Risk", [{
+            y: graphic.attributes.Wildfire,
+            tooltip: graphic.attributes.Wildfire,
+            fill: wf_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Earthquake,
+            tooltip: graphic.attributes.Earthquake,
+            fill: eq_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Floods,
+            tooltip: graphic.attributes.Floods,
+            fill: fl_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Hurricanes,
+            tooltip: graphic.attributes.Hurricanes,
+            fill: hur_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Winter,
+            tooltip: graphic.attributes.Winter,
+            fill: win_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Tornadoes,
+            tooltip: graphic.attributes.Tornadoes,
+            fill: tor_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Volcanoes,
+            tooltip: graphic.attributes.Volcanoes,
+            fill: vol_color,
+            stroke: {color: "#fff", width: 1.2}
+          },{
+            y: graphic.attributes.Nuclear,
+            tooltip: graphic.attributes.Nuclear,
+            fill: nuc_color,
+            stroke: {color: "#fff", width: 1.2},
+          }
+          ]);
+
+          chart1TT = new Tooltip(BarChart1, "default");
+      cp1.set("content", BarChart1.node);
+      BarChart1.render();
+      return cp.domNode;
         }
-      }]
-    });
+      ;
 
     //feature layer containing all risks and set as transparent. popup pulls from this layer for display information
-    var featureLayer = new FeatureLayer("http://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/AllRisks_Popup/FeatureServer/0",{
+    var featureLayer = new FeatureLayer("http://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/RISK/FeatureServer/0",{
       mode: FeatureLayer.MODE_ONDEMAND,
       outFields: ["*"],
-      infoTemplate: template
+      infoTemplate: info_window
     });
+
     map.addLayer(featureLayer);
+
+    map.infoWindow.resize(555, 600);
+
+    var labels = [{value: 1, text: "<b>Wildfire</b>"}, {value: 2,text: "<b>Earthquake</b>"}, {value: 3,text: "<b>Flood</b>"}, {value: 4,text: "<b>Hurricane</b>"}, {value: 5,text: "<b>Winter Weather</b>"}, {value: 6,text: "<b>Tornado</b>"}, {value: 7,text: "<b>Volcano</b>"}, {value: 8,text: "<b>Nuclear Plant</b>"}, {value: 9,text: " "}];
+
+    var labels_x = [{value: 1, text: "<b>Low</b>"},{value: 2, text: "<b>Moderate</b>"},{value: 3, text: "<b>High</b>"},{value: 4, text: "<b>Very High</b>"}];
 
     //image parameters are set to be called in the map service construction
     var imageParameters = new ImageParameters();
@@ -144,4 +280,21 @@ require([
         }
       });
     }
+
+    var home = new HomeButton({
+          map: map
+        }, "HomeButton");
+        home.startup();
+
+    var s = new Search({
+      	sources: [{
+      		featureLayer: featureLayer,
+      		placeholder: "Search for a County...",
+      		enableSuggestions: true,
+      		searchFields: ["County"],
+      		displayField: "County"
+      	}],
+      	map: map
+      }, "search");
+      s.startup();
 });

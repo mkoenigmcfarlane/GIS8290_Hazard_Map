@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Is your County Fucked?</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/simplex/bootstrap.min.css" rel="stylesheet" integrity="sha256-4nVETqQoIoCwuephcXpJ501G8B5sgBHb1ZsKU/D476I= sha512-cfSmkkLRDAcUNaJxRRWopCyEGX43UkWCAOl2wErYMBGOQVWwOsZ7IFuXScF9H/6nMGbmsgV4m5/xYfesyvHTxw==" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="bootstrap_custom.min.css">-->
+    <!--hardcoded styling so the data section headers are viewable when their link is clicked.-->
+    <style>
+      :target{
+        padding-top: 55px;
+      }
+      </style>
+  </head>
+   <body role="document">
+
+    <!-- Fixed navbar on top-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Is your County Fucked?</a>
+        </div>
+        <div id="navbar1" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="map.html">Map</a></li>
+	          <li class="active"><a href="references.html">References/Links</a></li>
+	  	    </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+	
+	<div class="page-header">
+        <h1>References/Links</h1>
+      	</div>
+
+		<div class="col-md-10"><h2 id="Nuclear Plants">Nuclear Plants</h2>
+			<p>The nuclear power plant data were obtained from the Socioeconomic Data and Applications Center (SEDAC) made available by the Center for International Earth Science Information Network (CIESIN, 2015) of Columbia University. The original dataset contained point locations of nuclear power point locations worldwide, as well as information about nuclear power plants’ names and the number of reactors. The continental US based nuclear power plants were extracted from the original file. According to the US Environmental Protection Agency and the US Nuclear Regulatory Commission, there are two types of buffer planning zones surrounding nuclear facilities that are used to plan a response in case of emergency. We constructed the following zones:</p>
+			<p>- A 10-mile emergency planning zone to protect the population from radiation exposure. Immediate protective actions for sheltering and/or evacuation are implemented within this zone.</p>
+			<p>- A 50-mile zone where food, livestock and water resources are monitored to prevent the public from consuming contaminated foodstuffs.</p>
+			<p>After buffer zones were created, we computed how many 10 and 50-mile buffer zones were located within each county. If a country contained two nuclear power plants, its risk category was defined as “Very high”. If a country fell within two 10-mile and two 50-mile at the same time, its risk level was defined as “High”. If a county only fell within two 50-mile buffer zones, it was considered “Moderate”. Finally, for countries with no buffer zones within their boundaries or only one 50-mile zone, the risk level was defined as “Low”.</p>
+			<p><strong>References:</p></strong>
+			<p>Center for International Earth Science Information Network (CIESIN)/Columbia University. 2015. Population Exposure Estimates in Proximity to Nuclear Power Plants: Locations. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). http://dx.doi.org/10.7927/H4WH2MXH. Accessed 1 October 2015.</p>
+
+		<h2 id="Earthquakes">Earthquakes</h2>
+			<p>Earthquake data was acquired as a shapefile from the U.S. Geological Survey (USGS) website for National Seismic Hazard Maps. These maps display earthquake ground motions for various probability levels across the United States and are applied in seismic provisions of building codes, insurance rate structures, risk assessments, and other public policy. The National Seismic Hazard Maps are derived from seismic hazard curves calculated on a grid of sites across the United States that describe the annual frequency of exceeding a set of ground motions. The data were last updated in 2014 and consisted of the contiguous 48 states. Levels of hazard risk were determined based on the amount of ground motion activity present within each county.</p>
+			<p>The data existed as a polygon shapefile containing many contour lines depicting increasing levels of ground motion throughout the U.S. and surrounding waters. The county polygon shapefile of the lower 48 states was used to clip the data needed for each of the counties. Then the data were separated into four different classes based on the values in ACC_VAL (ground peak acceleration) using a defined classification for the following risk levels:</>
+			<p>Low - 0 to 30
+Moderate - 31 to 50
+High - 51 to 80
+Very High - 81 and higher</p>
+			<p>Once the classes were separated out, each class was exported as it’s own shapefile and then dissolved into one contour with a rating of 1 for Low, 2 for Moderate, 3 for High, and 4 for Very High. The “Select by Location” tool was used to select the features from the county layer that intersected the source layer features of 1 through 4. A new field called “Risk Level” was then added to the county layer attribute table and each county had the geometry calculated for the highest level of risk that existed within each county.</p>
+			<p><strong>References:</p></strong>
+		<h2 id="Hurricanes">Hurricanes</h2>
+			<p>Hurricane data was collected in the form of a dataset containing spatial hurricane path shapefiles that was obtained from the NOAA National Centers for Environmental Information website. This shapefile contained all hurricanes for the entire world for 1842 to 2015. In order to determine a basis for the hazard risk, the map, "Frequency of Hurricane and Tropical Storm Activity by County: 1851-2012", from the FEMA America’s PrepareAthon website was obtained and reviewed. This map provided a write-up with guidelines on how the map was built which served as a reliable basis for this map parameters.</p>
+			<p>Once the data was on hand, to clean up the dataset, ArcGIS was utilized to select only the hurricane path lines that intersected the counties of the lower 48 states. Following the selection, a 125-mile buffer was added to each of the lines using the Buffer tool in ArcGIS. This process presented a simulated path of each hurricane with the size of the hurricane taken into consideration. To incorporate this data into the county polygon shapefile that was used for the final map, the Join Data tool joined the hurricane data based on the spatial location to the county and added the sum of the number of buffered hurricane paths that overlapped each county.</p>
+			<p>When the sum of hurricanes that have occurred in each county was obtained and incorporated spatially into the data, the data was classified into 4 levels of hazard risk: Low, Moderate, High, and Very High. The severity of the hurricanes were not taken into consideration for this map, only the number of occurrences:</p>
+			<p>Low - No Hurricanes
+Moderate - 1 to 28 Hurricanes
+High - 29 to 64 Hurricanes
+Very High - 65 to 116 Hurricanes
+</p>
+			<p><strong>References:</p></strong>
+			<p>Federal Emergency Management Agency (FEMA). 2015. Hurricane, Be Smart. Know your hazard. America’s PrepareAthon. http://community.fema.gov/hazard/hurricane/be-smart. Accessed 5 October 2015.</p>
+			<p>National Oceanic and Atmospheric Administration (NOAA). 2015. International Best Track Archive for Climate Stewardship (IBTrACS)-All data. NOAA National Centers for Environmental Information. http://www.ncdc.noaa.gov/ibtracs/index.php?name=ibtracs-data. Accessed 5 October 2015.</p>
+		<h2 id="Volcanoes">Volcanoes</h2>
+			<p>To produce the county shapefile containing volcano hazard risk data, the first task was to obtain a dataset containing spatial volcano data. This data came from Stanford University Library EarthWorks in the form of a point shapefile, which contained all worldwide volcanoes that have been active in the last 10,000 years. To make the dataset workable, ArcGIS was used to select only the volcanoes that intersected the counties of the lower 48 states.</p>
+			<p>As there are many different types of volcanoes, some more viscous than others and some produce more ash and debris, a uniform buffer would not suffice for this particular hazard map. Being non-experts on the physical attributes of volcanoes, a new spatial representation of volcano hazard risk was sought out. A hazard map, titled "Volcanic Hazards", portraying the hazard risk associated with volcanoes in the lower 48 states was obtained the American Red Cross website that took into account the different forms that volcanoes take. This hazard map showed the risk of both volcanoes and ashfall.</p>
+			<p>This dataset was available in an image and not in a workable format so the image needed to be georeferenced and then digitized using ArcGIS. This process developed a shapefile that could be used together with the county polygon shapefile. To join the data for the final map, the Join Data tool joined the spatial volcano data to the spatial location to the county and added the risk level of the volcano polygon that overlapped each county into the corresponding field. This data was then classified into 4 levels of hazard risk: Low, Moderate, High, and Very High. The classification distribution can be seen here:</p>
+			<p>Low – Very Low Volcano Risk and Very Low Ashfall Risk
+Moderate -  Low Volcano Risk and Low Ashfall Risk
+High – High Volcano Risk and High Ashfall Risk
+Very High – Very High Volcano Risk and High Ashfall Risk</p>
+			<p><strong>References:</p></strong>
+			<p>American Red Cross. 2015. Volcanic Hazards. Map, Weather & Hazard Catalogs. http://maps.redcross.org/website/Maps/Images/NationalLevel/volcano.gif. Accessed 20 November 2015.</p>
+			<p>Stanford University Libraries. 2003. Global GIS: volcanoes of the world; volcano basic data. EarthWorks. https://earthworks.stanford.edu/catalog/harvard-glb-volc. Accessed 20 November 2015.</p>
+		<h2 id="Floods">Floods</h2>
+			<p>Low - 0 or 1 event in 17 years
+Moderate - 2-20 events in 17 years
+High - 21-100 events in 17 years
+Very High - 100+ events in 17 years</p>
+			<p><strong>References:</p></strong>
+		<h2 id="Winter Storms">Winter Storms</h2>
+		<p>Data for winter weather were obtained from NOAA’s National Climatic Data Center storm events database. The database contains data from January 1950 to August 2015 as entered by the National Weather Service. Downloading the data in bulk from the database allows the user to download csv files of all events per year. All csv files were downloaded and then imported into a PostgreSQL database. To prepare an end product, FEMA provides static maps of storm hazards at their “America’s PrepareAthon” website. Following the guidance of the map “Frequency of Winter Storm Events by County: 1996-2013,” data were run through an SQL query to select out any event from 1996-2013 that was categorized as ‘blizzard’, ‘heavy snow’, ‘ice storm’, lake-effect snow’, ‘winter storm’, or ‘winter weather.’</p>
+		<p>Once queried out to winter storm events, another SQL query was run to sum the total events per county, and then average this number by 17 to get the average number of events per year. This query was exported to a csv file that was brought into ArcMap as a dBase table and spatially joined to a shapefile of United States counties. The join was based on the state and county FIPS codes combined into a five number geoid code. Using the FEMA static map example as a guideline for a choropleth display, the counties were divided into 4 risk categories based on the average number of storms per year from 1996-2013. The risk levels were divided as follows:</p>
+		<p>Low- less than 1 per year
+Moderate - 1-6 per year
+High - 7-12
+Very High - greater than 12
+*boulder county colorado has the highest average of storm events per year, data issues</p>
+		<p><strong>References:</p></strong>
+	<h2 id="Wildfires">Wildfires</h2>
+		<p>Wildfire data was collected from the U.S. Government under the Bureau of Indian Affairs (BIA),  the Bureau of Land Management (BLM), the Bureau of Land Reclamation (BLM), the United States Forest Service (USFS), the Fish and Wildlife Service (FWS), and the National Park Service (NPS). Each of these agencies contributed wildfire data from 1994 to 2013. The data were combined into a large point dataset for the contiguous 48 states. Levels of hazard risk were determined based on the frequency of points/wildfires within each county and according to FEMA America’s PrepareAthon website. Each of the counties were classified into 4 levels of hazard risk:</p> 
+		<p>Low - Wildfires less than 300 acres or no Wildfire occurrence 
+Moderate - Frequency less than 20 with Wildfires greater than 300 acres
+High - Frequency greater than 20 but less than 100 with Wildfires greater than 300 acres
+Very High - Frequency greater than 100 with Wildfires greater than 300 acres
+</p>
+		<p><strong>References:</p></strong>
+    <h2 id="Tornadoes">Tornadoes</h2>
+		<p>Data for the tornadoes layer were gathered from the National Weather Service’s Storm Events Database in the form of a shapefile containing the paths and attributes of historical tornadoes from 1950-2014. Using ArcGIS for Desktop to prepare the data, a spatial join was conducted on the tornado shapefile, joining it to a county-level shapefile and providing a count for the tornado frequencies in each county. The guidelines from FEMA’s tornado frequency maps provided the framework for organizing the data into four categories based on the number of severe tornadoes that have occurred in each county.</p>
+		<p>The severity of a tornado is measured using the Fujita scale, or F-scale, which rates a tornado’s intensity based on the damage incurred to man-made structures and to the surrounding landscape. The F-scale measurements consist of five categories, with F0 being the weakest and F5 being the strongest. The risk assessment used for this project places counties into risk levels based on the following criteria:</p>
+		<p>Low - no recorded tornado activity
+Medium - largest tornado was F2 or smaller
+High - less than four tornadoes measured F3 or greater
+Very High - more than three tornadoes measured F3 or greater</p>
+		<p>The county with the most severe tornado rating is Tuscaloosa County, Alabama, which has experienced nine tornadoes measuring F3 or greater since 1950.</p>
+		<p><strong>References:</p></strong>
+		<!-- END of SOURCE DATA INFORMATION-->
+</div>
