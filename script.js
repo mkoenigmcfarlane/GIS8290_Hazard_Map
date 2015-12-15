@@ -34,7 +34,7 @@ require([
 ],
   function (Map, ArcGISDynamicMapServiceLayer, FeatureLayer, ImageParameters, Popup, PopupTemplate, InfoWindow, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color, Search, HomeButton, domUtils, domClass, dom, domConstruct, on, Tooltip, Chart, Chart2D, Bars, dojoxTheme, axis2d, query, registry, TabContainer, BorderContainer, ContentPane, connect) {
 
-  var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
+  var fill = new SimpleLineSymbol("solid", null, new Color("#A4CE67"));
   var popup = new Popup({
       fillSymbol: fill,
       titleInBody: false
