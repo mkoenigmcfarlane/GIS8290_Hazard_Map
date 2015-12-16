@@ -3,7 +3,7 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
-   <title>Is your County Fucked?</title>
+   <title>Is your County at Risk?</title>
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/simplex/bootstrap.min.css" rel="stylesheet" integrity="sha256-4nVETqQoIoCwuephcXpJ501G8B5sgBHb1ZsKU/D476I= sha512-cfSmkkLRDAcUNaJxRRWopCyEGX43UkWCAOl2wErYMBGOQVWwOsZ7IFuXScF9H/6nMGbmsgV4m5/xYfesyvHTxw==" crossorigin="anonymous">
@@ -19,7 +19,16 @@
       }
       .list-item-span {
         display:block;
+        padding: 8px;
+       
+        list-style-position: inside;  
       }
+      
+      #leftPane {
+        text-align: left;
+        font-size: medium;
+        
+        }
       #map {
         height: 100%;
         width: 100%;
@@ -42,6 +51,10 @@
       .esriPopup.myTheme a {
         color: #b81e0d;
       }
+      .esriPopup {
+        font-size: 14px;
+        }
+        
       #search {
         display: block;
         position: absolute;
@@ -49,14 +62,17 @@
         top: 20px;
         left: 74px;
       }
-
       #HomeButton {
         position: absolute;
         top: 95px;
-        left: 20px;
+        left: 36px;
         z-index: 50;
       }
-
+      
+      .col-md-2{
+        width: 15%;}
+      .col-md-10{
+        width: 85%;}
     </style>
   </head>
   <body role="document">
@@ -69,7 +85,7 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Is your County Fucked?</a>
+          <a class="navbar-brand" href="index.html">Is your County at Risk?</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -84,33 +100,39 @@
         <div class="row">
             <div class="col-md-2">
               <div class="claro" data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
-                  Layer List : <span id="layer_list", class='legend'>
-                    <span class='list-item-span'>
-                      <input type='checkbox' class='list_item nuclear' id='layer4CheckBox' value=4 /><label for='layer4CheckBox'>Nuclear Plants</label>
+                  <b>Layer List :</b> <br><br>
+                  <span id="layer_list", class='legend'>
+                    
+                  <span class='list-item-span'>
+                    <input type='checkbox' class='list_item earthquakes' id='layer5CheckBox' value=5 /><label for='layer5CheckBox'>&nbsp&nbspEarthquakes</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item earthquakes' id='layer5CheckBox' value=5 /><label for='layer5CheckBox'>Earthquakes</label>
+                    <input type='checkbox' class='list_item hurricanes' id='layer6CheckBox' value=6 /><label for='layer6CheckBox'>&nbsp&nbspHurricanes</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item hurricanes' id='layer6CheckBox' value=6 /><label for='layer6CheckBox'>Hurricanes</label>
+                    <input type='checkbox' class='list_item volcanoes' id='layer7CheckBox' value=7 /><label for='layer7CheckBox'>&nbsp&nbspVolcanoes</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item volcanoes' id='layer7CheckBox' value=7 /><label for='layer7CheckBox'>Volcanoes</label>
+                    <input type='checkbox' class='list_item floods' id='layer8CheckBox' value=8 /><label for='layer8CheckBox'>&nbsp&nbspFloods</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item floods' id='layer8CheckBox' value=8 /><label for='layer8CheckBox'>Floods</label>
+                    <input type='checkbox' class='list_item winter' id='layer9CheckBox' value=9 /><label for='layer9CheckBox'>&nbsp&nbspWinter Storms</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item winter' id='layer9CheckBox' value=9 /><label for='layer9CheckBox'>Winter Storms</label>
+                    <input type='checkbox' class='list_item wildfires' id='layer10CheckBox' value=10 /><label for='layer10CheckBox'>&nbsp&nbspWildfires</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item wildfires' id='layer10CheckBox' value=10 /><label for='layer10CheckBox'>Wildfires</label>
+                    <input type='checkbox' class='list_item tornadoes' id='layer11CheckBox' value=11 /><label for='layer11CheckBox'>&nbsp&nbspTornadoes</label>
                   </span>
                   <span class='list-item-span'>
-                    <input type='checkbox' class='list_item tornadoes' id='layer11CheckBox' value=11 /><label for='layer11CheckBox'>Tornadoes</label>
-                  </span><br />
-                  <span id="nuclear_points"><input type='checkbox' id='nuclearpointscheckbox' /> Nuclear Sites </span><br />
-                  <br />
+                     <input type='checkbox' class='list_item nuclear' id='layer4CheckBox' value=4 /><label for='layer4CheckBox'>&nbsp&nbspNuclear Plants</label>
+                  </span><br /><b>Point Layer List :</b> <br><br>
+                  <span id="nuclear_points"><input type='checkbox' id='nuclearpointscheckbox' />&nbsp&nbspNuclear Sites</span><br />
+                  <br /><br><br>
+                  
+                  
+                  
+                  
                 </div>
               </div>
             <div class="col-md-10">
