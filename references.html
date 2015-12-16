@@ -42,7 +42,7 @@
       </div>
     </nav>
 
-	<div class="page-header">
+	<div class="page-header" style="padding-top: 30px">
         <h1>References/Links</h1>
       	</div>
 
@@ -50,7 +50,7 @@
 			<p>The nuclear power plant data were obtained from the Socioeconomic Data and Applications Center (SEDAC) made available by the Center for International Earth Science Information Network (CIESIN, 2015) of Columbia University. The original dataset contained point locations of nuclear power point locations worldwide, as well as information about nuclear power plants’ names and the number of reactors. The continental US based nuclear power plants were extracted from the original file. According to the US Environmental Protection Agency and the US Nuclear Regulatory Commission, there are two types of buffer planning zones surrounding nuclear facilities that are used to plan a response in case of emergency. We constructed the following zones:</p>
 			<p>- A 10-mile emergency planning zone to protect the population from radiation exposure. Immediate protective actions for sheltering and/or evacuation are implemented within this zone.</p>
 			<p>- A 50-mile zone where food, livestock and water resources are monitored to prevent the public from consuming contaminated foodstuffs.</p>
-			<p>After buffer zones were created, we computed how many 10 and 50-mile buffer zones were located within each county. If a country contained two nuclear power plants, its risk category was defined as “Very high”. If a country fell within two 10-mile and two 50-mile at the same time, its risk level was defined as “High”. If a county only fell within two 50-mile buffer zones, it was considered “Moderate”. Finally, for countries with no buffer zones within their boundaries or only one 50-mile zone, the risk level was defined as “Low”.</p>
+			<p>After buffer zones were created, we computed how many 10 and 50-mile buffer zones were located within each county. <br>If a country contained two nuclear power plants, its risk category was defined as “Very high”. <br>If a country fell within two 10-mile and two 50-mile at the same time, its risk level was defined as “High”. <br>If a county only fell within two 50-mile buffer zones, it was considered “Moderate”.<br> Finally, for countries with no buffer zones within their boundaries or only one 50-mile zone, the risk level was defined as “Low”.</p>
 			<p><strong>References:</p></strong>
 			<p>Center for International Earth Science Information Network (CIESIN)/Columbia University. 2015. Population Exposure Estimates in Proximity to Nuclear Power Plants: Locations. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). <a href="http://dx.doi.org/10.7927/H4WH2MXH">http://dx.doi.org/10.7927/H4WH2MXH</a>. Accessed 1 October 2015.</p>
 
@@ -63,6 +63,8 @@ High - 51 to 80<br>
 Very High - 81 and higher</p>
 			<p>Once the classes were separated out, each class was exported as it’s own shapefile and then dissolved into one contour with a rating of 1 for Low, 2 for Moderate, 3 for High, and 4 for Very High. The “Select by Location” tool was used to select the features from the county layer that intersected the source layer features of 1 through 4. A new field called “Risk Level” was then added to the county layer attribute table and each county had the geometry calculated for the highest level of risk that existed within each county.</p>
 			<p><strong>References:</p></strong>
+      <p>Federal Emergency Management Agency (FEMA). 2015. Earthquake, Be Smart. Know your hazard. America’s PrepareAthon. <a href="http://community.fema.gov/hazard/earthquake/be-smart">http://community.fema.gov/hazard/earthquake/be-smart</a>. Accessed 5 October 2015.</p>
+      <p>United States Geological Survey (USGS). 2015. Earthquake Hazards Program. Seismic Hazard Maps and Data.<a href="http://earthquake.usgs.gov/hazards/products/">http://earthquake.usgs.gov/hazards/products/</a>. Accessed 5 October 2015.</p>
 		<h2 id="Hurricanes">Hurricanes</h2>
 			<p>Hurricane data was collected in the form of a dataset containing spatial hurricane path shapefiles that was obtained from the NOAA National Centers for Environmental Information website. This shapefile contained all hurricanes for the entire world for 1842 to 2015. In order to determine a basis for the hazard risk, the map, "Frequency of Hurricane and Tropical Storm Activity by County: 1851-2012", from the FEMA America’s PrepareAthon website was obtained and reviewed. This map provided a write-up with guidelines on how the map was built which served as a reliable basis for this map parameters.</p>
 			<p>Once the data was on hand, to clean up the dataset, ArcGIS was utilized to select only the hurricane path lines that intersected the counties of the lower 48 states. Following the selection, a 125-mile buffer was added to each of the lines using the Buffer tool in ArcGIS. This process presented a simulated path of each hurricane with the size of the hurricane taken into consideration. To incorporate this data into the county polygon shapefile that was used for the final map, the Join Data tool joined the hurricane data based on the spatial location to the county and added the sum of the number of buffered hurricane paths that overlapped each county.</p>
@@ -92,8 +94,8 @@ Very High – Very High Volcano Risk and High Ashfall Risk</p>
 			<p>Low - 0 or 1 event in 17 years<br>
 Moderate - 2-20 events in 17 years<br>
 High - 21-100 events in 17 years<br>
-Very High - 100+ events in 17 years<br>
-*Due to discrepancies in naming conventions and assigning county FIPs/geoid codes, the spatial join between the event data and the county shapefile was not completely successful. This produced inaccuracies in the classification of counties.</p>
+Very High - 100+ events in 17 years</p>
+<p>*Due to discrepancies in naming conventions and assigning county FIPs/geoid codes, the spatial join between the event data and the county shapefile was not completely successful. This produced inaccuracies in the classification of counties.</p>
 			<p><strong>References:</p></strong>
       <p>National Oceanic and Atmospheric Administration (NOAA). 2015. Storm Events Database: Bulk Data Download. NOAA National Climatic Data Center. <a href="https://www.ncdc.noaa.gov/stormevents/ftp.jsp">https://www.ncdc.noaa.gov/stormevents/ftp.jsp</a>. Accessed 5 October 2015.</p>
       <p>Federal Emergency Management Agency (FEMA). 2015. Flood, Be Smart. Know your hazard. America’s PrepareAthon. <a href="http://community.fema.gov/hazard/flood/be-smart">http://community.fema.gov/hazard/flood/be-smar</a>. Accessed 29 September 2015.</p>
@@ -103,7 +105,8 @@ Very High - 100+ events in 17 years<br>
 		<p>Low- less than 1 per year<br>
 Moderate - 1-6 per year<br>
 High - 7-12<br>
-Very High - greater than 12<br>*Due to discrepancies in naming conventions and assigning county FIPs/geoid codes, the spatial join between the event data and the county shapefile was not completely successful. This produced inaccuracies in the classification of counties, especially in the western states of the country.</p>
+Very High - greater than 12</p>
+<p>*Due to discrepancies in naming conventions and assigning county FIPs/geoid codes, the spatial join between the event data and the county shapefile was not completely successful. This produced inaccuracies in the classification of counties, especially in the western states of the country.</p>
 		<p><strong>References:</p></strong>
     <p>Federal Emergency Management Agency (FEMA). 2015. Winter Storm, Be Smart. Know your hazard. America’s PrepareAthon. <a href="http://community.fema.gov/hazard/winter-storm/be-smart">http://community.fema.gov/hazard/winter-storm/be-smart</a>. Accessed 29 September 2015.</p>
     <p>National Oceanic and Atmospheric Administration (NOAA). 2015. Storm Events Database: Bulk Data Download. NOAA National Climatic Data Center. <a href="https://www.ncdc.noaa.gov/stormevents/ftp.jsp">https://www.ncdc.noaa.gov/stormevents/ftp.jsp</a>. Accessed 5 October 2015.</p>
@@ -124,5 +127,8 @@ High - less than four tornadoes measured F3 or greater<br>
 Very High - more than three tornadoes measured F3 or greater</p>
 		<p>The county with the most severe tornado rating is Tuscaloosa County, Alabama, which has experienced nine tornadoes measuring F3 or greater since 1950.</p>
 		<p><strong>References:</p></strong>
+    <p>Federal Emergency Management Agency (FEMA). 2015. Tornado, Be Smart. Know your hazard. America’s PrepareAthon. <a href="http://community.fema.gov/hazard/tornado/be-smart.">http://community.fema.gov/hazard/tornado/be-smart.</a> </p>
+    <p>National Oceanic and Atmospheric Administration (NOAA). 2015. Storm Events Database: Storm Prediction Center. <a href="http://www.spc.noaa.gov/gis/svrgis/zipped/tornado.zip">http://www.spc.noaa.gov/gis/svrgis/zipped/tornado.zip</a>
+Accessed September 2015.</p>
 		<!-- END of SOURCE DATA INFORMATION-->
 </div>
