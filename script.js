@@ -35,7 +35,7 @@ require([
   function (Map, ArcGISDynamicMapServiceLayer, FeatureLayer, ImageParameters, Popup, PopupTemplate, InfoWindow, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color, Search, HomeButton, domUtils, domClass, dom, domConstruct, on, Tooltip, Chart, Chart2D, Bars, dojoxTheme, axis2d, query, registry, TabContainer, BorderContainer, ContentPane, connect) {
 
   var fill = new SimpleLineSymbol("solid", null, new Color("#A4CE67"));
-  
+
   var popup = new Popup({
       fillSymbol: fill,
       titleInBody: false
@@ -45,7 +45,7 @@ require([
 
     var map = new Map("map", {
       center: [-98, 39],
-      zoom: 5,
+      zoom: 4,
       basemap: "gray",
       maxZoom: 9,
       infoWindow: popup
@@ -65,7 +65,7 @@ require([
             }
             return x1 + x2;
           }
-     
+
      var info_window = new esri.InfoTemplate();
        info_window.setTitle("<b>${County} County, ${State}</b>");
        info_window.setContent(getWindowContent);
@@ -91,7 +91,7 @@ require([
 			"Population: " + addCommas(graphic.attributes.totpop) +"<br>"+
 			"County Area: " + addCommas(graphic.attributes.sq_k) + " sq. mi." + "<br>" +
 			"Population Density: " + addCommas(graphic.attributes.pop_den) + " people/sq. mi."+ "<br>" +"<br>"+
-      "<b>Cumulative Risk</b>" + "<br>" + 
+      "<b>Cumulative Risk</b>" + "<br>" +
       "Total Risks: " + (graphic.attributes.Cumulative).toString() + "/32" + "<br>" +
       "Worst County Total: 24 (San Bernardino County, CA)" + "<br>" +
       "Best County Total: 9 (Liberty County, MT)" +
@@ -100,7 +100,7 @@ require([
 			"<b>Further Resources</b>" + "<br>"+ "Visit " +
 			graphic.attributes.County + " County " + "<a href='" + graphic.attributes.website + "' target='_blank'>Emergency Preparedness Website</a>" + "<br>"+
       "Download " + "<a href='http://www.cdc.gov/phpr/documents/ahpg_final_march_2013.pdf' target='_blank'>CDC Emergency Preparedness Guide</a>"
-			
+
 		,style: "height:335px; width:475px; border-color:#fff;color:#222327; font:sans-serif; "
       });
 
@@ -158,8 +158,8 @@ require([
             }
           });
 
-          
-      
+
+
       function getColor(risk_value){
         if (risk_value== "1") {return "#1A9641";}
         else if (risk_value== "2") {return "#A5D96A";}
