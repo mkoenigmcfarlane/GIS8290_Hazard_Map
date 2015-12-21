@@ -169,10 +169,10 @@ require([
 
 
       function getColor(risk_value){
-        if (risk_value== "1") {return "#1A9641";}
-        else if (risk_value== "2") {return "#A5D96A";}
-        else if (risk_value== "3") {return "#FCAE60";}
-        else if (risk_value== "4") {return "#D61A1D";}}
+        if (risk_value== "1") {return "#FEF0D9";}
+        else if (risk_value== "2") {return "#FDCC8A";}
+        else if (risk_value== "3") {return "#FC8D59";}
+        else if (risk_value== "4") {return "#D7301F";}}
 
       var wf_color = getColor(graphic.attributes.Wildfire);
       var eq_color = getColor(graphic.attributes.Earthquake);
@@ -182,8 +182,14 @@ require([
       var hur_color = getColor(graphic.attributes.Hurricanes);
       var win_color = getColor(graphic.attributes.Winter);
       var vol_color = getColor(graphic.attributes.Volcanoes);
+      var tot_color = getColor(graphic.attributes.Cumulative);
 
       BarChart1.addSeries("Risk", [{
+          //   y: graphic.attributes.Cumulative,
+          //   tooltip: graphic.attributes.Cumulative,
+          //   fill: tot_color,
+          //   stroke: {color: "#fff", width: 1.2}
+          // },{
             y: graphic.attributes.Wildfire,
             tooltip: graphic.attributes.Wildfire,
             fill: wf_color,
