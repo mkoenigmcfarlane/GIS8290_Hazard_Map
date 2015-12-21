@@ -93,8 +93,16 @@ require([
 			"Population Density: " + addCommas(graphic.attributes.pop_den) + " people/sq. mi."+ "<br>" +"<br>"+
       "<b>Cumulative Risk</b>" + "<br>" +
       "Total Risks: " + (graphic.attributes.Cumulative).toString() + "/32" + "<br>" +
-      "Worst County Total: 24 (San Bernardino County, CA)" + "<br>" +
-      "Best County Total: 9 (Liberty County, MT)" +
+      "Highest Risk Total: 24" + 
+      "<br>" +"&nbsp&nbspSan Bernardino County, CA" + "<br>" +
+      "Lowest Risk Total: 9 " +
+      "<br>" +"&nbsp&nbspWalsh County, ND" + 
+      "<br>" +"&nbsp&nbspGarfield County, WA" + 
+      "<br>" +"&nbsp&nbspBoyd County, NE" + 
+      "<br>" +"&nbsp&nbspSummit County, CO" + 
+      "<br>" +"&nbsp&nbspBuena Vista County, VA" + 
+      "<br>" +"&nbsp&nbspRadford County, VA" + 
+      "<br>" +"&nbsp&nbspReal County, TX" + 
 			"<br>"+
 			"<br>"+
 			"<b>Further Resources</b>" + "<br>"+ "Visit " +
