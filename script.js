@@ -93,16 +93,16 @@ require([
 			"Population Density: " + addCommas(graphic.attributes.pop_den) + " people/sq. mi."+ "<br>" +"<br>"+
       "<b>Cumulative Risk</b>" + "<br>" +
       "Total Risks: " + (graphic.attributes.Cumulative).toString() + "/32" + "<br>" +
-      "Highest Risk Total: 24" + 
+      "Highest Risk Total: 24" +
       "<br>" +"&nbsp&nbspSan Bernardino County, CA" + "<br>" +
       "Lowest Risk Total: 9 " +
-      "<br>" +"&nbsp&nbspWalsh County, ND" + 
-      "<br>" +"&nbsp&nbspGarfield County, WA" + 
-      "<br>" +"&nbsp&nbspBoyd County, NE" + 
-      "<br>" +"&nbsp&nbspSummit County, CO" + 
-      "<br>" +"&nbsp&nbspBuena Vista County, VA" + 
-      "<br>" +"&nbsp&nbspRadford County, VA" + 
-      "<br>" +"&nbsp&nbspReal County, TX" + 
+      "<br>" +"&nbsp&nbspWalsh County, ND" +
+      "<br>" +"&nbsp&nbspGarfield County, WA" +
+      "<br>" +"&nbsp&nbspBoyd County, NE" +
+      "<br>" +"&nbsp&nbspSummit County, CO" +
+      "<br>" +"&nbsp&nbspBuena Vista County, VA" +
+      "<br>" +"&nbsp&nbspRadford County, VA" +
+      "<br>" +"&nbsp&nbspReal County, TX" +
 			"<br>"+
 			"<br>"+
 			"<b>Further Resources</b>" + "<br>"+ "Visit " +
@@ -250,11 +250,11 @@ require([
 
     //image parameters are set to be called in the map service construction
     var imageParameters = new ImageParameters();
-    imageParameters.layerIds = [0,1,3,4,5,6,7,8,9,10,11];
+    imageParameters.layerIds = [0,1,3,4,5,6,7,8,9,10,11,12,13];
     imageParameters.layerOption = ImageParameters.LAYER_OPTION_HIDE;
 
     //map service containing individual risk layers
-    var layer = new ArcGISDynamicMapServiceLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer",
+    var layer = new ArcGISDynamicMapServiceLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer",
         {"imageParameters": imageParameters});
     map.addLayer(layer);
 
