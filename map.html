@@ -20,14 +20,14 @@
       .list-item-span {
         display:block;
         padding: 8px;
-       
-        list-style-position: inside;  
+
+        list-style-position: inside;
       }
-      
+
       #leftPane {
         text-align: left;
         font-size: medium;
-        
+
         }
       #map {
         height: 100%;
@@ -52,9 +52,9 @@
         color: #b81e0d;
       }
       .esriPopup {
-        font-size: 14px;
+        font-size: 13px;
         }
-        
+
       #search {
         display: block;
         position: absolute;
@@ -68,7 +68,7 @@
         left: 36px;
         z-index: 50;
       }
-      
+
       .col-md-2{
         width: 15%;}
       .col-md-10{
@@ -91,7 +91,9 @@
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
             <li class="active"><a href="map.html">Map</a></li>
+            <li><a href="casestudy.html">Case Studies</a></li>
             <li><a href="references.html">References/Links</a></li>
+
 	          </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -102,7 +104,7 @@
               <div class="claro" data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
                   <b>Layer List :</b> <br><br>
                   <span id="layer_list", class='legend'>
-                    
+
                   <span class='list-item-span'>
                     <input type='checkbox' class='list_item earthquakes' id='layer5CheckBox' value=5 /><label for='layer5CheckBox'>&nbsp&nbspEarthquakes</label>
                   </span>
@@ -126,13 +128,19 @@
                   </span>
                   <span class='list-item-span'>
                      <input type='checkbox' class='list_item nuclear' id='layer4CheckBox' value=4 /><label for='layer4CheckBox'>&nbsp&nbspNuclear Plants</label>
+                  </span>
+                  <span class='list-item-span'>
+                    <input type='checkbox' class='list_item population' id='layer12CheckBox' value=12 /><label for='layer12CheckBox'>&nbsp&nbspPopulation Density</label>
+                  </span>
+                  <span class='list-item-span'>
+                    <input type='checkbox' class='list_item allrisk' id='layer13CheckBox' value=13 /><label for='layer13CheckBox'>&nbsp&nbspOverall Risk Level</label>
                   </span><br /><b>Point Layer List :</b> <br><br>
                   <span id="nuclear_points"><input type='checkbox' id='nuclearpointscheckbox' />&nbsp&nbspNuclear Sites</span><br />
                   <br /><br><br>
-                  
-                  
-                  
-                  
+
+
+
+
                 </div>
               </div>
             <div class="col-md-10">
