@@ -265,17 +265,17 @@ require([
     map.addLayer(layer);
 
     //3 feature layers created for the nuclear sites. 0 and 1 are the buffers. 2 is the points.
-    var nuclearLayer0 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/0",{
+    var nuclearLayer0 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/0",{
       visible: false
     });
     map.addLayer(nuclearLayer0);
 
-    var nuclearLayer1 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/1",{
+    var nuclearLayer1 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/1",{
       visible: false
     });
     map.addLayer(nuclearLayer1);
 
-    var nuclearLayer2 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/3",{
+    var nuclearLayer2 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/3",{
       visible: false
     });
     map.addLayer(nuclearLayer2);
