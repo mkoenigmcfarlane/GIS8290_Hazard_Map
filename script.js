@@ -93,8 +93,16 @@ require([
 			"Population Density: " + addCommas(graphic.attributes.pop_den) + " people/sq. mi."+ "<br>" +"<br>"+
       "<b>Cumulative Risk</b>" + "<br>" +
       "Total Risks: " + (graphic.attributes.Cumulative).toString() + "/32" + "<br>" +
-      "Worst County Total: 24 (San Bernardino County, CA)" + "<br>" +
-      "Best County Total: 9 (Liberty County, MT)" +
+      "Highest Risk Total: 24" +
+      "<br>" +"&nbsp&nbspSan Bernardino County, CA" + "<br>" +
+      "Lowest Risk Total: 9 " +
+      "<br>" +"&nbsp&nbspWalsh County, ND" +
+      "<br>" +"&nbsp&nbspGarfield County, WA" +
+      "<br>" +"&nbsp&nbspBoyd County, NE" +
+      "<br>" +"&nbsp&nbspSummit County, CO" +
+      "<br>" +"&nbsp&nbspBuena Vista County, VA" +
+      "<br>" +"&nbsp&nbspRadford County, VA" +
+      "<br>" +"&nbsp&nbspReal County, TX" +
 			"<br>"+
 			"<br>"+
 			"<b>Further Resources</b>" + "<br>"+ "Visit " +
@@ -161,10 +169,10 @@ require([
 
 
       function getColor(risk_value){
-        if (risk_value== "1") {return "#1A9641";}
-        else if (risk_value== "2") {return "#A5D96A";}
-        else if (risk_value== "3") {return "#FCAE60";}
-        else if (risk_value== "4") {return "#D61A1D";}}
+        if (risk_value== "1") {return "#FEF0D9";}
+        else if (risk_value== "2") {return "#FDCC8A";}
+        else if (risk_value== "3") {return "#FC8D59";}
+        else if (risk_value== "4") {return "#D7301F";}}
 
       var wf_color = getColor(graphic.attributes.Wildfire);
       var eq_color = getColor(graphic.attributes.Earthquake);
@@ -174,8 +182,14 @@ require([
       var hur_color = getColor(graphic.attributes.Hurricanes);
       var win_color = getColor(graphic.attributes.Winter);
       var vol_color = getColor(graphic.attributes.Volcanoes);
+      var tot_color = getColor(graphic.attributes.Cumulative);
 
       BarChart1.addSeries("Risk", [{
+          //   y: graphic.attributes.Cumulative,
+          //   tooltip: graphic.attributes.Cumulative,
+          //   fill: tot_color,
+          //   stroke: {color: "#fff", width: 1.2}
+          // },{
             y: graphic.attributes.Wildfire,
             tooltip: graphic.attributes.Wildfire,
             fill: wf_color,
@@ -242,26 +256,26 @@ require([
 
     //image parameters are set to be called in the map service construction
     var imageParameters = new ImageParameters();
-    imageParameters.layerIds = [0,1,3,4,5,6,7,8,9,10,11];
+    imageParameters.layerIds = [0,1,3,4,5,6,7,8,9,10,11,12,13];
     imageParameters.layerOption = ImageParameters.LAYER_OPTION_HIDE;
 
     //map service containing individual risk layers
-    var layer = new ArcGISDynamicMapServiceLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer",
+    var layer = new ArcGISDynamicMapServiceLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer",
         {"imageParameters": imageParameters});
     map.addLayer(layer);
 
     //3 feature layers created for the nuclear sites. 0 and 1 are the buffers. 2 is the points.
-    var nuclearLayer0 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/0",{
+    var nuclearLayer0 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/0",{
       visible: false
     });
     map.addLayer(nuclearLayer0);
 
-    var nuclearLayer1 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/1",{
+    var nuclearLayer1 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/1",{
       visible: false
     });
     map.addLayer(nuclearLayer1);
 
-    var nuclearLayer2 = new FeatureLayer("http://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal2/MapServer/3",{
+    var nuclearLayer2 = new FeatureLayer("https://gis.uspatial.umn.edu/arcgis/rest/services/CrisisMappingFinal3/MapServer/3",{
       visible: false
     });
     map.addLayer(nuclearLayer2);
